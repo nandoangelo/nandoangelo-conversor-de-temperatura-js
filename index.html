@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  
+<!-- =======================================================
+
+    OLÁ!!!
+
+    Eu sou o Nando Angelo e fiz esse teste baseado no 
+    exercício 03 do curso de JavaScript do Guanabara.
+    
+    Se tiver alguma dúvida responda aos meus comentários 
+    nos vídeos do Guanabara ou fale comigo por e-mail: 
+    nandoangelo@gmail.com ou ainda pelo meu Whatsapp: 
+    (63) 98402-1954
+
+    Abraço do Nando!
+
+   =======================================================  -->
+
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um simples conversor de temperaturas em JavaScript.">
+    <meta author="Fernando Angelo">
+    <meta name="keywords" content="javscript,curso em vídeo,guanabara,nandoangelo">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Ícones do FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="http://nandoangelo.com.br/projetinhos/conversor-de-temperaturas/img/iconterm.png">
+    
+    <style>
+      /* Reset padrão */
+      * {
+        margin: 0;
+        padding: 0; 
+      }
+      /* Definindo que os elementos html e body ocuparão toda tela */
+      html, body {
+        width: 100%;
+        height: 100%;
+      }
+      /* Configurando o corpo do site */
+      body {
+        background: #e8b650;
+        background-size: cover;
+        background-position: center;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12pt;
+        font-weight: normal;
+        text-align: center;
+      }
+      /* Área principal */
+      .container {
+        background-color: #fff;
+        width: 600px;
+        min-height: 400px;
+        padding: 15px 32px;
+        margin: 2em auto;
+        box-shadow: 5px 5px 25px rgba(0,0,0,0.3);
+      }
+      /* Mensagem para o usuário */
+      .recado {
+        background-color: #fff2ae;
+        width: 70%;
+        padding: 18px;
+        margin: 5px auto 18px auto;
+        font-size: 0.9em;
+        line-height: 1.45em;
+        box-sizing: border-box;
+      }
+      /* Título */
+      h3 { margin: 1em 0; }
+      /* Configurando os campos de digitação e seleção */
+      input[type="number"], select {
+        border-radius: 12px;
+        border: 2px solid rgba(0,0,0,0.20);
+        font-size: 1em;
+        padding: 0.6em;
+        /*text-align: center;*/
+        outline: none;
+        width: 100px;
+      }
+      /* Adicionando efeito ao campo de texto */
+      input[type="number"]:focus {
+        box-shadow: 0 0 6px rgba(0,0,0,0.25) inset;
+        border-color: rgba(15,172,243,0.75);
+        transition: 0.25s;
+      }
+      /* Configurando a área de seleção */
+      select {
+        cursor: pointer;
+        width: 70px;
+      }
+      /* Configurando o botão */
+      input[type="button"] {
+        background-color: #0facf3;
+        color: #fff;
+        border: 2px solid #0b7eb1;
+        border-radius: 10px;
+        padding: 10px;
+        display: block;
+        margin: 1em auto;
+        width: 200px;
+        box-sizing: border-box;
+        outline: none;
+        cursor: pointer;
+      }
+      /* Adicionando efeito ao botão */
+      input[type="button"]:hover { 
+        background-color: #0b7eb1;
+        border-color: #095e85;
+        transition: all 0.3s;
+      }
+      /* Espaço destinado aos valores convertidos */
+      #convertido {
+        margin: 1.35em auto;
+        width: 200px;
+        box-sizing: border-box; 
+      }
+      /* Acrescentando uma margem entre as respostas*/
+      #convertido p { margin: 0.65em 0;}
+      /* Configurando nosso rodapé */
+      footer {
+        color: #fff; 
+        margin: 1.3em;
+      }
+      /* Ícones para redes sociais */
+      .fa {
+        color: #fff;
+        font-size: 1.25em !important;
+        padding: 20px;
+        width: 20px;
+        text-align: center;
+        text-decoration: none;
+        margin: 10px 2px;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #fff;
+      }
+      /* Definindo transição */
+      .fa:hover {
+        transition: all 0.35s;
+      }
+      /* Cor verde para o Whatsapp */
+      .fa-whatsapp:hover,
+      .fa-whatsapp:focus { 
+        background-color: #00b489;
+        border-color: #00b489;
+      }
+      /* Cor vermelha alaranjada para o Instagram */
+      .fa-instagram:hover,
+      .fa-instagram:focus { 
+        background-color: tomato;
+        border-color: tomato;
+      }
+      /* Cor azul para o Facebook */
+      .fa-facebook:hover,
+      .fa-facebook:focus  { 
+        background-color: #3B5998;
+        border-color: #3B5998;
+      }
+      /* Cor vermelha para o YouTube */
+      .fa-youtube:hover,
+      .fa-youtube:focus { 
+        background-color: #bb0000;
+        border-color: #bb0000;
+      }
+      /* Deixando a visualização melhor em telas menores */
+      @media all and (max-width: 700px) {
+        .container { width: 75%; }
+      }
+    </style>
+
+  </head>
+
+  <body onload="atualizaAnoRodape()">
+    <!-- 
+      onload="atualizaAnoRodape()"
+
+      Ao carregar o <body> é ativada a função que criamos em 
+      JavaScript para atualizar o ano no rodapé do nosso site
+     -->
+
+      <!-- inicio: .container -->
+      <div class="container">
+
+        <h3>Conversor de Temperaturas</h3>
+        <!-- Exibe mensagem explicando a finalidade do programa ao usuário -->
+        <div class="recado">
+          <p>
+            Informe uma temperatura abaixo e ao clicar em 
+            'Converter' eu trarei o valor equivalente em 
+            outras medidas.
+          </p>
+        </div>
+        
+        <!-- Campo para inserir o valor numérico da temperatura -->
+        <input type="number" name="temperatura" id="temperatura" value="0" placeholder="Informe uma temperatura">
+
+        <!-- Campo para selecionar qual a temperatura está sendo escrita -->
+        <select name="simbolo" id="simbolo">
+          <option value="celsius" selected> °C </option>
+          <option value="fahrenheit"> °F </option>
+          <option value="kelvin"> K </option>
+        </select>
+
+        <!-- Botão que chama nossa função de conversão de valores -->
+        <input type="button" name="converte" value="Converter" onclick="converteTemperatura()">
+
+        <!-- Espaço reservado para exibir a temperatura convertida -->
+        <div id="convertido"></div>
+        
+      </div>
+      <!-- fim: .container -->
+
+      <!-- início: footer -->
+      <footer>
+        <!-- 
+          Se lembra da função 'atualizaAnoRodape()' na linha 41 ali em cima?
+          Ela atualiza o que está dentro do <span> abaixo
+         -->
+        <p class="copy">&copy; Nando Angelo <span class="ano">20xx</span></p>
+        
+        <!-- Link do meu Whatsapp -->
+        <a href="https://wa.me/5563984021954" 
+           title="Mande uma mensagem pra mim" 
+           class="fa fa-whatsapp"></a>
+
+        <!-- Link do meu Instagram -->
+        <a href="https://instagram.com/nandoangelo"
+           title="Siga meu instagram"
+           class="fa fa-instagram"></a>
+
+        <!-- Link do meu Facebook -->
+        <a href="https://facebook.com/nandoangelo"
+           title="Seja meu amigo no Facebook"
+           class="fa fa-facebook"></a>
+
+        <!-- Link do meu canal no YouTube -->
+        <a href="https://youtube.com/nandoangelo"
+           title="Conheça meu canal"
+           class="fa fa-youtube"></a>
+      </footer>
+      <!-- fim: footer-->
+
+    <script>
+      // Recebendo a data e hora do sistema
+      var agora   = new Date();
+      var ano     = agora.getFullYear();
+
+      /* 
+        FUNÇÃO: atualizaAnoRodape()
+        ============================================
+        Criada para atualizar o ano no copyright do 
+        rodapé do site. */
+
+      function atualizaAnoRodape() {
+        
+        // Manipulador do DOM
+        var anoRodape = document.querySelector('span.ano');
+        
+        // Recebe o ano atual do sistema
+        anoRodape.innerText = ano;
+      }
+
+      /* 
+        FUNÇÃO: converteTemperatura()
+        ============================================
+        Reconhece o valor passado pelo usuário e faz 
+        a conversão em outras temperaturas */
+
+      function converteTemperatura() {
+        var temperatura = document.getElementById('temperatura');
+        var simbolo = document.getElementById('simbolo');
+        var res = document.getElementById('convertido');
+
+        // Forçando a conversão em número
+        temperatura = Number(temperatura.value);
+
+        // Identifica o símbolo da temperatura digitada pelo usuário
+        // e faz a devida conversão de valores.
+        if (simbolo[0].selected) {
+          
+          // CELSIUS SELECIONADO
+          
+          // Converte a temperatura em: 
+          var fahrenheit  = (temperatura * 9/5) + 32;
+          var kelvin      = temperatura + 273.15;
+
+          // Escreve a resposta na tela
+          res.innerHTML = `<p><strong>${temperatura} °C</strong> equivalem a:</p>`;
+          res.innerHTML += `<p><strong>${fahrenheit.toFixed(2)} °F</strong> (Fahrenheit)</p>`;
+          res.innerHTML += `<p><strong>${kelvin.toFixed(2)} K</strong> (Kelvin)</p>`;
+
+        } else if (simbolo[1].selected) {
+          
+          // FAHRENHEIT SELECIONADO
+          
+          // Converte a temperatura em: 
+          var celsius     = (temperatura - 32) * 5/9;
+          var kelvin      = (temperatura - 32) * 5/9 + 273.15;
+
+          // Escreve a resposta na tela
+          res.innerHTML = `<p><strong>${temperatura} °F</strong> equivalem a:</p>`;
+          res.innerHTML += `<p><strong>${celsius.toFixed(2)} °C</strong> (Celsius)</p>`;
+          res.innerHTML += `<p><strong>${kelvin.toFixed(2)} K</strong> (Kelvin)</p>`;
+
+        } else if (simbolo[2].selected) {
+          
+          // KELVIN SELECIONADO
+          
+          // Converte a temperatura em: 
+          var celsius     = temperatura - 273.15;
+          var fahrenheit  = (temperatura - 273.15) * 9/5 + 32;
+
+          // Escreve a resposta na tela
+          res.innerHTML = `<p><strong>${temperatura} K</strong> equivalem a:</p>`;
+          res.innerHTML += `<p><strong>${celsius.toFixed(2)} °C</strong> (Celsius)</p>`;
+          res.innerHTML += `<p><strong>${fahrenheit.toFixed(2)} °F</strong> (Fahrenheit)</p>`;
+        }
+      }
+    </script>
+  </body>
+</html>
