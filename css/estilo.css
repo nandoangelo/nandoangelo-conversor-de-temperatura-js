@@ -134,11 +134,11 @@ footer {
   background-color: tomato;
   border-color: tomato;
 }
-/* Cor azul para o Facebook */
-.fa-facebook:hover,
-.fa-facebook:focus  { 
-  background-color: #3B5998;
-  border-color: #3B5998;
+/* Cor para o GitHub */
+.fa-github:hover,
+.fa-github:focus  { 
+  background-color: #ad1ada;
+  border-color: #ad1ada;
 }
 /* Cor vermelha para o YouTube */
 .fa-youtube:hover,
