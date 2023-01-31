@@ -59,17 +59,17 @@
         </div>
         
         <!-- Campo para inserir o valor numérico da temperatura -->
-        <input type="number" name="temperatura" id="temperatura" value="0" placeholder="Informe uma temperatura">
+        <input type="number" name="temperatura" id="temperatura" value="0" placeholder="Informe uma temperatura" onkeyup="converteTemperatura()" onchange="converteTemperatura()">
 
         <!-- Campo para selecionar qual a temperatura está sendo escrita -->
-        <select name="simbolo" id="simbolo">
+        <select name="simbolo" id="simbolo" onchange="converteTemperatura()">
           <option value="celsius" selected> °C </option>
           <option value="fahrenheit"> °F </option>
           <option value="kelvin"> K </option>
         </select>
 
         <!-- Botão que chama nossa função de conversão de valores -->
-        <input type="button" name="converte" value="Converter" onclick="converteTemperatura()">
+        <!-- <input type="button" name="converte" value="Converter" onclick="converteTemperatura()"> -->
 
         <!-- Espaço reservado para exibir a temperatura convertida -->
         <div id="convertido"></div>
